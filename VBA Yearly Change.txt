@@ -1,0 +1,50 @@
+Sub Yearly_Change()
+
+    For Each ws In Worksheets
+        ws.Activate
+        
+        Cells(1, "H").Value = "Ticker"
+        Cells(1, "I").Value = "Yearly Change"
+        Cells(1, "J").Value = "Percent Change"
+        Cells(1, "K").Value = "Total Stock Volume"
+        
+        Dim LastRow As Long
+        Dim Ticker As String
+        Dim Summary_Table_Row As Integer
+            Summary_Table_Row = 2
+        Dim Yearly_Change As Double
+            Yearly_Change = 0
+        Dim i As double
+
+        LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row - 1
+
+        For i = 2 To LastRow
+
+            If Cells(i, 1).Value <> Cells(i + 1, 1).Value Then
+            
+            Ticker = ws.Cells(i, 1).Value
+            Yearly_Change = ws.Cells(i, 4).Value - ws.Cells(i, 3).Value
+            
+            Cells(Summary_Table_Row, "H").Value = Cells(i, 1).Value
+            Cells(Summary_Table_Row, "I").Value = Yearly_Change
+            
+            Yearly_Change = 0
+            Summary_Table_Row = Summary_Table_Row + 1
+        
+        Else
+                    
+            Yearly_Change = ws.Cells(i, 4).Value - ws.Cells(i, 3).Value
+        End If
+            
+		if Cells (i,9).Value <= 0 then
+		Cells(i9).interior.colorindex=3
+
+		elseif Cells(i,9).value >= 0 then
+		cells (i,9).interior.colorindex=4
+		
+		end if
+    Next i
+            
+    Next ws
+    
+End Sub

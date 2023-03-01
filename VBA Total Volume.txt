@@ -1,0 +1,41 @@
+Sub Total_Stock_Volume()
+
+    For Each ws In Worksheets
+        ws.Activate
+        
+        Dim LastRow As Long
+        Dim Ticker As String
+        Dim Summary_Table_Row As Integer
+            Summary_Table_Row = 2
+        Dim Total_Stock_Volume As Double
+            Total_Stock_Volume = 0
+        Dim k As double
+        
+        LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row - 1
+
+        For k = 2 To LastRow
+ 
+            If Cells(k, 1).Value <> Cells(k + 1, 1).Value Then
+            
+                Ticker = ws.Cells(k, 1).Value
+                Total_Stock_Volume = Total_Stock_Volume + ws.Cells(k, 7).Value
+                
+                Cells(Summary_Table_Row, "H").Value = Ticker
+                Cells(Summary_Table_Row, "K").Value = Total_Stock_Volume
+                
+                Total_Stock_Volume = 0
+                Summary_Table_Row = Summary_Table_Row + 1
+            
+            Else
+                
+               Total_Stock_Volume = Total_Stock_Volume + ws.Cells(k, 7).Value
+            
+            End If
+            
+        Next k
+            
+
+    Next ws
+    
+End Sub
+

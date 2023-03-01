@@ -1,0 +1,31 @@
+Sub Challenge_Combined()
+
+    Sheets.Add.Name = "Combined_Data"
+    
+    Sheets("Combined_data").Move Before:=Sheets(1)
+    
+    Set combined_sheet = Worksheets("Combined_Data")
+
+                
+        For Each ws In Worksheets
+        
+            LastRow = combined_sheet.Cells(Rows.Count, "A").End(xlUp).Row + 1
+            
+            LastRowYear = ws.Cells(Rows.Count, "A").End(xlUp).Row - 1
+            
+            combined_sheet.Range("A" & LastRow & ":K" & ((LastRowYear - 1) + LastRow)).Value = ws.Range("A2:K" & (LastRowYear + 1)).Value
+            
+            
+        Next ws
+        
+        combined_sheet.Range("A1:K1").Value = Sheets(2).Range("A1:K1").Value
+        
+        combined_sheet.Columns("A:K").AutoFit
+        
+        Range("A1:G1").Interior.ColorIndex = 48
+        Range("A2:K158885").Interior.ColorIndex = 15
+        Range("H1:K1").Interior.ColorIndex = 40
+        Range("H2:K158885").Interior.ColorIndex = 19
+
+End Sub
+=

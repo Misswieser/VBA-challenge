@@ -1,0 +1,33 @@
+Sub Bonus()
+    Cells(1, "N2").Value = "Greatest % increase"
+    Cells(1, "N3").Value = "Greatest % decrease"
+    Cells(1, "N4").Value = "Greatest Total Volume"
+    Cells(1, "O").Value = "Ticker"
+    Cells(1, "P").Value = "Value"
+    Range("O1:P1").Interior.ColorIndex = 43
+    Range("N2:N4").Interior.ColorIndex = 43
+    Range("O2:P4").Interior.ColorIndex = 35
+    Dim Greatest_increase As Double
+    Dim Greatest_decrease As Double
+    Dim Greatest_volume As Double
+    Greatest_increase = -9999999999#
+    Greatest_decrease = 9999999999#
+    Greatest_volume = 0
+    For i = 2 To 158885
+        If Cells(i, 11).Value > Greatest_volume Then
+            Greatest_volume = Cells(i, 11).Value
+            Cells(4, "O").Value = Cells(i, 8).Value
+            Cells(4, "P").Value = Greatest_volume
+        End If
+        If Cells(i, 10).Value > Greatest_increase Then
+            Greatest_increase = Cells(i, 10).Value
+            Cells(2, "O").Value = Cells(i, 8).Value
+            Cells(2, "P").Value = Greatest_increase
+        End If
+        If Cells(i, 10).Value < Greatest_decrease Then
+            Greatest_decrease = Cells(i, 10).Value
+            Cells(3, "O").Value = Cells(i, 8).Value
+            Cells(3, "P").Value = Greatest_decrease
+        End If
+    Next i
+End Sub

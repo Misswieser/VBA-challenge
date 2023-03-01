@@ -1,0 +1,49 @@
+Sub Percent_Change()
+  
+     For Each ws In Worksheets
+        ws.Activate
+            
+            Dim Ticker As String
+            Dim Summary_Table_Row As Integer
+                Summary_Table_Row = 2
+            Dim Percent_Change As Variant
+                Percent_Change = 0
+            Dim Price_open As Variant
+            Dim Close_price As Variant
+            
+                
+            Dim j As double
+        
+        LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row - 1
+
+            For j = 2 To LastRow
+
+                If Cells(j, 1).Value <> Cells(j + 1, 1).Value Then
+                
+                Price_open = Cells(j, 3).Value
+                Close_price = Cells(j, 6).Value
+        
+                Yearly_percent = (Close_price * Price_open) /100
+                
+                Cells(Summary_Table_Row, "J").Value = FormatPercent(Yearly_percent, 2)
+
+                Cells(Summary_Table_Row, "H").Value = ws.Cells(j, 1).Value
+                Cells(Summary_Table_Row, "J").Value = Yearly_percent
+                
+                'Cells(Summary_Table_Row, "J").Style = "percentage"
+            
+                'Range("J").formattingNumber = "0.00%"
+           
+                Summary_Table_Row = Summary_Table_Row + 1
+                Percent_Change = 0
+                
+            Else
+                
+               Yearly_percent = (Close_price * Price_open) / 100
+                
+            End If
+             
+            Next j
+     Next ws
+End Sub
+
